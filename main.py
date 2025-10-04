@@ -1,3 +1,4 @@
+import datetime
 import logging
 import os
 from aiogram import Bot, Dispatcher, types
@@ -11,6 +12,7 @@ from dotenv import load_dotenv
 # ===================== Загрузка токена =====================
 load_dotenv()
 TOKEN = os.getenv("TOKEN")
+CHANNEL_ID = os.getenv("CHANNEL_ID")
 if not TOKEN:
     raise ValueError("TOKEN not found in .env file")
 
@@ -209,7 +211,6 @@ async def contact_entered(message: types.Message, state: FSMContext):
            f"#{data['category']} #{data.get('price_tag', '')}"
 
     # ===================== Отправка объявления в канал =====================
-    CHANNEL_ID = -1002077624751  # ID твоего канала
 
     try:
         # Если есть фото
@@ -243,3 +244,4 @@ async def contact_entered(message: types.Message, state: FSMContext):
 # ===================== Запуск =====================
 if __name__ == "__main__":
     executor.start_polling(dp, skip_updates=True)
+    logging.info('start app %s', datetime.datetime.now())
